@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taxonomy Tree</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">Taxonomy Tree</div>
+
+        <div class="section">
+            <div class="section-title">
+                <span class="arrow" onclick="toggleDomains()">&#9654;</span>
+                <span class="domain-text" onclick="toggleDomains()">Domains</span>
+            </div>
+            <ul id="domainsList" class="domains-list">
+                <li class="domain-item">
+                    <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Eukarya
+                    <ul class="subtree">
+                        <!-- Subtree items can be added here -->
+                        <li>Kingdom 1</li>
+                        <li>Kingdom 2</li>
+                    </ul>
+                </li>
+                <li class="domain-item">
+                    <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Bacteria
+                    <ul class="subtree">
+                        <!-- Subtree items can be added here -->
+                        <li>Kingdom A</li>
+                        <li>Kingdom B</li>
+                    </ul>
+                </li>
+                <li class="domain-item">
+                    <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Archaea
+                    <ul class="subtree">
+                        <!-- Subtree items can be added here -->
+                        <li>Kingdom X</li>
+                        <li>Kingdom Y</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

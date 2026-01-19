@@ -1,0 +1,81 @@
+/* styles.css */
+
+body {
+    background-color: black;
+    color: #39FF14; /* Neon Green color */
+    font-family: Arial, sans-serif;
+    font-size: 14px; /* Smaller font size */
+}
+
+.container {
+    margin: 20px;
+}
+
+.header {
+    font-size: 1.5em; /* Smaller header */
+    margin-bottom: 20px;
+}
+
+.section {
+    margin-top: 20px;
+}
+
+.section-title {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.arrow {
+    cursor: pointer;
+    font-size: 1.2em; /* Smaller arrows */
+    margin-right: 8px;
+    transition: transform 0.3s ease-in-out; /* Smooth arrow rotation */
+}
+
+.domain-text {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.domains-list {
+    margin-left: 40px; /* Move the list further to the right */
+    list-style-type: none;
+    padding-left: 0;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.5s ease, max-height 0.5s ease; /* Smooth transition for showing/hiding */
+}
+
+.domains-list.show {
+    opacity: 1;
+    max-height: 500px; /* Arbitrary height to ensure smooth slide */
+}
+
+.domain-item {
+    padding: 5px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.subtree {
+    margin-left: 20px; /* Indent the subtree items further */
+    list-style-type: none;
+    padding-left: 0;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.5s ease, max-height 0.5s ease; /* Smooth transition for subtrees */
+}
+
+.subtree.show {
+    opacity: 1;
+    max-height: 500px; /* Arbitrary height for subtree */
+}
+
+.arrow.open {
+    transform: rotate(90deg); /* Rotate arrow to point down when expanded */
+}
