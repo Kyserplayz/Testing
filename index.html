@@ -7,40 +7,169 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">Taxonomyyyyy Tree</div>
+    <div class="controls">
+        <button onclick="zoomIn()">+ Zoom In</button>
+        <button onclick="zoomOut()">- Zoom Out</button>
+        <button onclick="resetView()">Reset View</button>
+        <button onclick="expandAll()">Expand All</button>
+        <button onclick="collapseAll()">Collapse All</button>
+        <div class="zoom-level">Zoom: 100%</div>
+    </div>
+    
+    <div class="zoom-container" id="zoomContainer">
+        <div class="tree-container" id="treeContainer">
+            <div class="header">Taxonomy Tree</div>
 
-        <div class="section">
-            <div class="section-title">
-                <span class="arrow" onclick="toggleDomains()">&#9654;</span>
-                <span class="domain-text" onclick="toggleDomains()">Domains</span>
+            <div class="section">
+                <div class="section-title">
+                    <span class="arrow" onclick="toggleDomains()">&#9654;</span>
+                    <span class="domain-text" onclick="toggleDomains()">Domains</span>
+                </div>
+                <ul id="domainsList" class="domains-list">
+                    <!-- Eukarya Section -->
+                    <li class="domain-item">
+                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Eukarya
+                        <ul class="subtree">
+                            <li>
+                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Kingdom 1
+                                <ul class="subtree">
+                                    <li>
+                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Phylum A
+                                        <ul class="subtree">
+                                            <li>
+                                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Class I
+                                                <ul class="subtree">
+                                                    <li>
+                                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Order α
+                                                        <ul class="subtree">
+                                                            <li>
+                                                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Family i
+                                                                <ul class="subtree">
+                                                                    <li>
+                                                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Genus x
+                                                                        <ul class="subtree">
+                                                                            <li>Species 1</li>
+                                                                            <li>Species 2</li>
+                                                                            <li>Species 3</li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Kingdom 2
+                                <ul class="subtree">
+                                    <li>
+                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Phylum 1
+                                        <ul class="subtree">
+                                            <li>
+                                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Class A
+                                                <ul class="subtree">
+                                                    <li>
+                                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Order I
+                                                        <ul class="subtree">
+                                                            <li>
+                                                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Family a
+                                                                <ul class="subtree">
+                                                                    <li>
+                                                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Genus alpha
+                                                                        <ul class="subtree">
+                                                                            <li>Species alpha1</li>
+                                                                            <li>Species alpha2</li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Phylum 2
+                                        <ul class="subtree">
+                                            <li>
+                                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Class B
+                                                <ul class="subtree">
+                                                    <li>
+                                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Order II
+                                                        <ul class="subtree">
+                                                            <li>Family b</li>
+                                                            <li>Family c</li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Phylum 3
+                                        <ul class="subtree">
+                                            <li>Class C</li>
+                                            <li>Class D</li>
+                                            <li>Class E</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Bacteria Section -->
+                    <li class="domain-item">
+                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Bacteria
+                        <ul class="subtree">
+                            <li>
+                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Kingdom Bacteria
+                                <ul class="subtree">
+                                    <li>
+                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Proteobacteria
+                                        <ul class="subtree">
+                                            <li>Class Gammaproteobacteria</li>
+                                            <li>Class Alphaproteobacteria</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Firmicutes
+                                        <ul class="subtree">
+                                            <li>Class Bacilli</li>
+                                            <li>Class Clostridia</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Archaea Section -->
+                    <li class="domain-item">
+                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Archaea
+                        <ul class="subtree">
+                            <li>
+                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Kingdom Crenarchaeota
+                                <ul class="subtree">
+                                    <li>Phylum Thermoproteota</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Kingdom Euryarchaeota
+                                <ul class="subtree">
+                                    <li>Phylum Methanobacteriota</li>
+                                    <li>Phylum Halobacterota</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
-            <ul id="domainsList" class="domains-list">
-                <li class="domain-item">
-                    <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Eukarya
-                    <ul class="subtree">
-                        <!-- Subtree items can be added here -->
-                        <li>Kingdom 1</li>
-                        <li>Kingdom 2</li>
-                    </ul>
-                </li>
-                <li class="domain-item">
-                    <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Bacteria
-                    <ul class="subtree">
-                        <!-- Subtree items can be added here -->
-                        <li>Kingdom A</li>
-                        <li>Kingdom B</li>
-                    </ul>
-                </li>
-                <li class="domain-item">
-                    <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Archaea
-                    <ul class="subtree">
-                        <!-- Subtree items can be added here -->
-                        <li>Kingdom X</li>
-                        <li>Kingdom Y</li>
-                    </ul>
-                </li>
-            </ul>
         </div>
     </div>
 

@@ -1,81 +1,295 @@
 /* styles.css */
 
-body {
-    background-color: black;
-    color: #39FF14; /* Neon Green color */
-    font-family: Arial, sans-serif;
-    font-size: 14px; /* Smaller font size */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.container {
-    margin: 20px;
+body {
+    background-color: #0a0a0a;
+    color: #39FF14;
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+.controls {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #39FF14;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.controls button {
+    background: #111;
+    color: #39FF14;
+    border: 1px solid #39FF14;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    transition: all 0.2s;
+}
+
+.controls button:hover {
+    background: #39FF14;
+    color: #000;
+}
+
+.zoom-level {
+    color: #39FF14;
+    font-size: 14px;
+    padding: 5px 10px;
+    background: rgba(57, 255, 20, 0.1);
+    border-radius: 3px;
+}
+
+.zoom-container {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 60px);
+    overflow: auto;
+    cursor: grab;
+    transition: transform 0.1s;
+}
+
+.zoom-container:active {
+    cursor: grabbing;
+}
+
+.tree-container {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    min-width: 5000px;
+    min-height: 3000px;
+    padding: 100px;
+    transform-origin: 0 0;
+    transition: transform 0.2s ease-out;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 19px,
+            rgba(57, 255, 20, 0.05) 20px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 19px,
+            rgba(57, 255, 20, 0.05) 20px
+        );
 }
 
 .header {
-    font-size: 1.5em; /* Smaller header */
-    margin-bottom: 20px;
+    font-size: 3em;
+    margin-bottom: 50px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #39FF14;
+    position: sticky;
+    top: 100px;
+    background: rgba(10, 10, 10, 0.9);
+    z-index: 10;
 }
 
 .section {
-    margin-top: 20px;
+    margin-top: 30px;
+    position: relative;
 }
 
 .section-title {
-    font-size: 1.2em;
-    margin-bottom: 10px;
+    font-size: 2.5em;
+    margin-bottom: 30px;
     display: flex;
     align-items: center;
+    cursor: pointer;
+    padding: 15px;
+    background: rgba(57, 255, 20, 0.05);
+    border-radius: 8px;
+    position: sticky;
+    top: 200px;
+    z-index: 5;
+    transition: all 0.3s;
+}
+
+.section-title:hover {
+    background: rgba(57, 255, 20, 0.1);
+    transform: translateX(5px);
 }
 
 .arrow {
     cursor: pointer;
-    font-size: 1.2em; /* Smaller arrows */
-    margin-right: 8px;
-    transition: transform 0.3s ease-in-out; /* Smooth arrow rotation */
+    font-size: 1em;
+    margin-right: 15px;
+    transition: transform 0.3s ease-in-out;
+    display: inline-block;
+    min-width: 25px;
+    text-align: center;
+    user-select: none;
+}
+
+.arrow.open {
+    transform: rotate(90deg);
 }
 
 .domain-text {
-    cursor: pointer;
     font-weight: bold;
+    user-select: none;
 }
 
 .domains-list {
-    margin-left: 40px; /* Move the list further to the right */
     list-style-type: none;
     padding-left: 0;
     opacity: 0;
     max-height: 0;
     overflow: hidden;
-    transition: opacity 0.5s ease, max-height 0.5s ease; /* Smooth transition for showing/hiding */
+    transition: opacity 0.4s ease, max-height 0.4s ease;
+    margin-left: 100px;
 }
 
 .domains-list.show {
     opacity: 1;
-    max-height: 500px; /* Arbitrary height to ensure smooth slide */
+    max-height: 50000px;
 }
 
 .domain-item {
-    padding: 5px 0;
+    padding: 20px 0;
     cursor: pointer;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    position: relative;
+    margin-left: 50px;
+    font-size: 2em;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.domain-item:hover {
+    color: #7CFC00;
+    transform: translateX(10px);
 }
 
 .subtree {
-    margin-left: 20px; /* Indent the subtree items further */
+    margin-left: 100px;
     list-style-type: none;
     padding-left: 0;
     opacity: 0;
     max-height: 0;
     overflow: hidden;
-    transition: opacity 0.5s ease, max-height 0.5s ease; /* Smooth transition for subtrees */
+    transition: opacity 0.4s ease, max-height 0.4s ease;
 }
 
 .subtree.show {
     opacity: 1;
-    max-height: 500px; /* Arbitrary height for subtree */
+    max-height: 10000px;
 }
 
-.arrow.open {
-    transform: rotate(90deg); /* Rotate arrow to point down when expanded */
+.subtree li {
+    padding: 15px 0;
+    position: relative;
+    margin-left: 50px;
+    display: flex;
+    align-items: flex-start;
+    font-size: 1.8em;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.subtree li:hover {
+    color: #7CFC00;
+    transform: translateX(5px);
+}
+
+/* Styling for different taxonomic ranks */
+.domain-item { /* Domain level */
+    font-size: 2.2em;
+    font-weight: bold;
+    color: #00FF9D;
+}
+
+.subtree > li { /* Kingdom level */
+    font-size: 2em;
+    color: #4AFF00;
+}
+
+.subtree > li > .subtree > li { /* Phylum level */
+    font-size: 1.8em;
+    color: #8AFF00;
+}
+
+.subtree > li > .subtree > li > .subtree > li { /* Class level */
+    font-size: 1.6em;
+    color: #BFFF00;
+}
+
+.subtree > li > .subtree > li > .subtree > li > .subtree > li { /* Order level */
+    font-size: 1.4em;
+    color: #EAFF00;
+}
+
+.subtree > li > .subtree > li > .subtree > li > .subtree > li > .subtree > li { /* Family level */
+    font-size: 1.2em;
+    color: #FFD700;
+}
+
+.subtree > li > .subtree > li > .subtree > li > .subtree > li > .subtree > li > .subtree > li { /* Genus level */
+    font-size: 1.1em;
+    color: #FFAA00;
+}
+
+.subtree > li > .subtree > li > .subtree > li > .subtree > li > .subtree > li > .subtree > li > .subtree > li { /* Species level */
+    font-size: 1em;
+    color: #FF7B00;
+}
+
+/* Connector lines */
+.domain-item::before,
+.subtree li::before {
+    content: "";
+    position: absolute;
+    left: -50px;
+    top: 30px;
+    width: 40px;
+    height: 2px;
+    background-color: #39FF14;
+    opacity: 0.5;
+}
+
+/* Vertical connector lines */
+.domain-item:not(:last-child)::after,
+.subtree li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: -50px;
+    top: 30px;
+    width: 2px;
+    height: calc(100% - 25px);
+    background-color: #39FF14;
+    opacity: 0.3;
+}
+
+/* Grid coordinates indicator */
+.coordinates {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #39FF14;
+    color: #39FF14;
+    font-family: 'Courier New', monospace;
+    z-index: 1000;
 }
