@@ -1,15 +1,12 @@
 /* styles.css */
 
-* {
+body {
+    background-color: black;
+    color: #39FF14; /* Neon Green color */
+    font-family: Arial, sans-serif;
+    font-size: 14px; /* Smaller font size */
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: #0a0a0a;
-    color: #39FF14;
-    font-family: 'Courier New', monospace;
     overflow: hidden;
     height: 100vh;
     width: 100vw;
@@ -27,7 +24,6 @@ body {
     display: flex;
     gap: 10px;
     align-items: center;
-    flex-wrap: wrap;
 }
 
 .controls button {
@@ -37,7 +33,6 @@ body {
     padding: 5px 10px;
     border-radius: 3px;
     cursor: pointer;
-    font-family: 'Courier New', monospace;
     transition: all 0.2s;
 }
 
@@ -46,7 +41,7 @@ body {
     color: #000;
 }
 
-.zoom-level {
+.coordinates {
     color: #39FF14;
     font-size: 14px;
     padding: 5px 10px;
@@ -54,88 +49,87 @@ body {
     border-radius: 3px;
 }
 
-.zoom-container {
+/* Infinite Space Container */
+.infinite-space {
     position: absolute;
-    top: 60px;
+    top: 0;
     left: 0;
-    width: 100vw;
-    height: calc(100vh - 60px);
-    overflow: auto;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
     cursor: grab;
-    transition: transform 0.1s;
+    background: #000;
 }
 
-.zoom-container:active {
+.infinite-space:active {
     cursor: grabbing;
 }
 
-.tree-container {
+/* Infinite grid background */
+.infinite-space::before {
+    content: '';
     position: absolute;
-    top: 50px;
-    left: 50px;
-    min-width: 5000px;
-    min-height: 3000px;
-    padding: 100px;
-    transform-origin: 0 0;
-    transition: transform 0.2s ease-out;
-    background: 
-        repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 19px,
-            rgba(57, 255, 20, 0.05) 20px
-        ),
-        repeating-linear-gradient(
-            90deg,
-            transparent,
-            transparent 19px,
-            rgba(57, 255, 20, 0.05) 20px
-        );
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background-image: 
+        linear-gradient(rgba(57, 255, 20, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(57, 255, 20, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+}
+
+/* Taxonomy container that can be panned */
+.taxonomy-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 40px;
+    border: 2px solid #39FF14;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(57, 255, 20, 0.3);
+    min-width: 400px;
 }
 
 .header {
-    font-size: 3em;
-    margin-bottom: 50px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid #39FF14;
-    position: sticky;
-    top: 100px;
-    background: rgba(10, 10, 10, 0.9);
-    z-index: 10;
+    font-size: 1.8em;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #39FF14;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
 }
 
 .section {
-    margin-top: 30px;
-    position: relative;
+    margin-top: 20px;
 }
 
 .section-title {
-    font-size: 2.5em;
-    margin-bottom: 30px;
+    font-size: 1.4em;
+    margin-bottom: 15px;
     display: flex;
     align-items: center;
     cursor: pointer;
-    padding: 15px;
-    background: rgba(57, 255, 20, 0.05);
-    border-radius: 8px;
-    position: sticky;
-    top: 200px;
-    z-index: 5;
-    transition: all 0.3s;
+    padding: 8px 12px;
+    background: rgba(57, 255, 20, 0.1);
+    border-radius: 5px;
+    transition: background-color 0.2s;
 }
 
 .section-title:hover {
-    background: rgba(57, 255, 20, 0.1);
-    transform: translateX(5px);
+    background: rgba(57, 255, 20, 0.2);
 }
 
 .arrow {
     cursor: pointer;
     font-size: 1em;
-    margin-right: 15px;
+    margin-right: 10px;
     transition: transform 0.3s ease-in-out;
     display: inline-block;
-    min-width: 25px;
+    min-width: 20px;
     text-align: center;
     user-select: none;
 }
@@ -145,44 +139,41 @@ body {
 }
 
 .domain-text {
+    cursor: pointer;
     font-weight: bold;
     user-select: none;
 }
 
 .domains-list {
+    margin-left: 40px;
     list-style-type: none;
     padding-left: 0;
     opacity: 0;
     max-height: 0;
     overflow: hidden;
     transition: opacity 0.4s ease, max-height 0.4s ease;
-    margin-left: 100px;
 }
 
 .domains-list.show {
     opacity: 1;
-    max-height: 50000px;
+    max-height: 1000px;
 }
 
 .domain-item {
-    padding: 20px 0;
+    padding: 8px 0;
     cursor: pointer;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     position: relative;
-    margin-left: 50px;
-    font-size: 2em;
-    transition: all 0.2s;
-    user-select: none;
+    margin-left: 20px;
 }
 
 .domain-item:hover {
     color: #7CFC00;
-    transform: translateX(10px);
 }
 
 .subtree {
-    margin-left: 100px;
+    margin-left: 30px;
     list-style-type: none;
     padding-left: 0;
     opacity: 0;
@@ -193,65 +184,19 @@ body {
 
 .subtree.show {
     opacity: 1;
-    max-height: 10000px;
+    max-height: 1000px;
 }
 
 .subtree li {
-    padding: 15px 0;
+    padding: 5px 0;
     position: relative;
-    margin-left: 50px;
+    margin-left: 20px;
     display: flex;
-    align-items: flex-start;
-    font-size: 1.8em;
-    transition: all 0.2s;
-    user-select: none;
+    align-items: center;
 }
 
 .subtree li:hover {
     color: #7CFC00;
-    transform: translateX(5px);
-}
-
-/* Styling for different taxonomic ranks */
-.domain-item { /* Domain level */
-    font-size: 2.2em;
-    font-weight: bold;
-    color: #00FF9D;
-}
-
-.subtree > li { /* Kingdom level */
-    font-size: 2em;
-    color: #4AFF00;
-}
-
-.subtree > li > .subtree > li { /* Phylum level */
-    font-size: 1.8em;
-    color: #8AFF00;
-}
-
-.subtree > li > .subtree > li > .subtree > li { /* Class level */
-    font-size: 1.6em;
-    color: #BFFF00;
-}
-
-.subtree > li > .subtree > li > .subtree > li > .subtree > li { /* Order level */
-    font-size: 1.4em;
-    color: #EAFF00;
-}
-
-.subtree > li > .subtree > li > .subtree > li > .subtree > li > .subtree > li { /* Family level */
-    font-size: 1.2em;
-    color: #FFD700;
-}
-
-.subtree > li > .subtree > li > .subtree > li > .subtree > li > .subtree > li > .subtree > li { /* Genus level */
-    font-size: 1.1em;
-    color: #FFAA00;
-}
-
-.subtree > li > .subtree > li > .subtree > li > .subtree > li > .subtree > li > .subtree > li > .subtree > li { /* Species level */
-    font-size: 1em;
-    color: #FF7B00;
 }
 
 /* Connector lines */
@@ -259,10 +204,10 @@ body {
 .subtree li::before {
     content: "";
     position: absolute;
-    left: -50px;
-    top: 30px;
-    width: 40px;
-    height: 2px;
+    left: -20px;
+    top: 12px;
+    width: 15px;
+    height: 1px;
     background-color: #39FF14;
     opacity: 0.5;
 }
@@ -272,24 +217,10 @@ body {
 .subtree li:not(:last-child)::after {
     content: "";
     position: absolute;
-    left: -50px;
-    top: 30px;
-    width: 2px;
-    height: calc(100% - 25px);
+    left: -20px;
+    top: 12px;
+    width: 1px;
+    height: calc(100% - 10px);
     background-color: #39FF14;
     opacity: 0.3;
-}
-
-/* Grid coordinates indicator */
-.coordinates {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    background: rgba(0, 0, 0, 0.8);
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #39FF14;
-    color: #39FF14;
-    font-family: 'Courier New', monospace;
-    z-index: 1000;
 }

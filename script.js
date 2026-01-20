@@ -1,236 +1,146 @@
 // script.js
 
-let scale = 1;
-let posX = 0;
-let posY = 0;
+// Panning variables
 let isDragging = false;
 let startX, startY;
-let startPosX, startPosY;
+let offsetX = 0, offsetY = 0;
+const infiniteSpace = document.getElementById('infiniteSpace');
+const taxonomyContainer = document.getElementById('taxonomyContainer');
+const coordinatesElement = document.querySelector('.coordinates');
 
-// Zoom and Pan functionality
-const zoomContainer = document.getElementById('zoomContainer');
-const treeContainer = document.getElementById('treeContainer');
-const zoomLevelElement = document.querySelector('.zoom-level');
-
-// Initialize
+// Initialize everything collapsed
 document.addEventListener('DOMContentLoaded', function() {
-  updateTransform();
-  
-  // Add event listeners for panning
-  zoomContainer.addEventListener('mousedown', startDrag);
-  zoomContainer.addEventListener('touchstart', startDragTouch);
-  
-  // Add wheel event for zooming
-  zoomContainer.addEventListener('wheel', handleWheel);
-  
-  // Close document listeners
-  document.addEventListener('mousemove', drag);
-  document.addEventListener('mouseup', stopDrag);
-  document.addEventListener('touchmove', dragTouch);
-  document.addEventListener('touchend', stopDrag);
-  
-  // Everything starts collapsed
-  collapseAll();
+    // Set up panning
+    setupPanning();
+    
+    // Update coordinates display
+    updateCoordinates();
+    
+    // Initially collapsed
+    collapseAll();
 });
 
-// Mouse drag events
-function startDrag(e) {
-  isDragging = true;
-  startX = e.clientX;
-  startY = e.clientY;
-  startPosX = posX;
-  startPosY = posY;
-  zoomContainer.style.cursor = 'grabbing';
+// Set up panning functionality
+function setupPanning() {
+    infiniteSpace.addEventListener('mousedown', startPan);
+    infiniteSpace.addEventListener('touchstart', startPanTouch);
+    document.addEventListener('mousemove', pan);
+    document.addEventListener('touchmove', panTouch);
+    document.addEventListener('mouseup', stopPan);
+    document.addEventListener('touchend', stopPan);
+    
+    // Prevent default touch behaviors
+    infiniteSpace.addEventListener('touchmove', function(e) {
+        if (isDragging) e.preventDefault();
+    }, { passive: false });
 }
 
-function startDragTouch(e) {
-  if (e.touches.length === 1) {
+// Mouse events
+function startPan(e) {
     isDragging = true;
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-    startPosX = posX;
-    startPosY = posY;
-    e.preventDefault();
-  }
+    startX = e.clientX - offsetX;
+    startY = e.clientY - offsetY;
+    infiniteSpace.style.cursor = 'grabbing';
 }
 
-function drag(e) {
-  if (!isDragging) return;
-  e.preventDefault();
-  
-  const dx = e.clientX - startX;
-  const dy = e.clientY - startY;
-  
-  posX = startPosX + dx / scale;
-  posY = startPosY + dy / scale;
-  
-  updateTransform();
+function startPanTouch(e) {
+    if (e.touches.length === 1) {
+        isDragging = true;
+        startX = e.touches[0].clientX - offsetX;
+        startY = e.touches[0].clientY - offsetY;
+        infiniteSpace.style.cursor = 'grabbing';
+    }
 }
 
-function dragTouch(e) {
-  if (!isDragging || e.touches.length !== 1) return;
-  e.preventDefault();
-  
-  const dx = e.touches[0].clientX - startX;
-  const dy = e.touches[0].clientY - startY;
-  
-  posX = startPosX + dx / scale;
-  posY = startPosY + dy / scale;
-  
-  updateTransform();
+function pan(e) {
+    if (!isDragging) return;
+    
+    offsetX = e.clientX - startX;
+    offsetY = e.clientY - startY;
+    
+    updatePosition();
 }
 
-function stopDrag() {
-  isDragging = false;
-  zoomContainer.style.cursor = 'grab';
+function panTouch(e) {
+    if (!isDragging || e.touches.length !== 1) return;
+    
+    offsetX = e.touches[0].clientX - startX;
+    offsetY = e.touches[0].clientY - startY;
+    
+    updatePosition();
 }
 
-// Zoom with mouse wheel
-function handleWheel(e) {
-  e.preventDefault();
-  
-  const zoomIntensity = 0.1;
-  const wheel = e.deltaY < 0 ? 1 : -1;
-  const zoomFactor = wheel > 0 ? (1 + zoomIntensity) : (1 - zoomIntensity);
-  
-  // Calculate mouse position relative to tree container
-  const rect = treeContainer.getBoundingClientRect();
-  const mouseX = e.clientX - rect.left;
-  const mouseY = e.clientY - rect.top;
-  
-  // Adjust position to zoom toward cursor
-  posX -= (mouseX / scale) * (zoomFactor - 1);
-  posY -= (mouseY / scale) * (zoomFactor - 1);
-  
-  scale *= zoomFactor;
-  
-  // Limit zoom range
-  scale = Math.max(0.1, Math.min(5, scale));
-  
-  updateTransform();
+function stopPan() {
+    isDragging = false;
+    infiniteSpace.style.cursor = 'grab';
 }
 
-// Update CSS transform
-function updateTransform() {
-  treeContainer.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
-  zoomLevelElement.textContent = `Zoom: ${Math.round(scale * 100)}%`;
+// Update taxonomy container position
+function updatePosition() {
+    taxonomyContainer.style.transform = `translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px))`;
+    updateCoordinates();
 }
 
-// Control functions
-function zoomIn() {
-  scale = Math.min(5, scale + 0.2);
-  updateTransform();
+// Update coordinates display
+function updateCoordinates() {
+    const x = Math.round(offsetX);
+    const y = Math.round(offsetY);
+    coordinatesElement.textContent = `X: ${x}, Y: ${y}`;
 }
 
-function zoomOut() {
-  scale = Math.max(0.1, scale - 0.2);
-  updateTransform();
-}
-
+// Reset view to center
 function resetView() {
-  scale = 1;
-  posX = 0;
-  posY = 0;
-  updateTransform();
+    offsetX = 0;
+    offsetY = 0;
+    updatePosition();
 }
 
-// Taxonomy tree functions
+// Original taxonomy functions
 function toggleDomains() {
-  const list = document.getElementById('domainsList');
-  const arrow = document.querySelector('.section-title .arrow');
-  
-  list.classList.toggle('show');
-  arrow.classList.toggle('open');
+    const list = document.getElementById('domainsList');
+    const arrow = document.querySelector('.section-title .arrow');
+    
+    list.classList.toggle('show');
+    arrow.classList.toggle('open');
 }
 
 function toggleArrow(element) {
-  const subtree = element.parentElement.querySelector('.subtree');
-  const arrow = element;
-  
-  subtree.classList.toggle('show');
-  arrow.classList.toggle('open');
-}
-
-function expandAll() {
-  // Expand main domains
-  const domainsList = document.getElementById('domainsList');
-  const mainArrow = document.querySelector('.section-title .arrow');
-  domainsList.classList.add('show');
-  mainArrow.classList.add('open');
-  
-  // Expand all arrows recursively
-  const allArrows = document.querySelectorAll('.arrow:not(.section-title .arrow)');
-  allArrows.forEach(arrow => {
-    const subtree = arrow.parentElement.querySelector('.subtree');
-    if (subtree) {
-      subtree.classList.add('show');
-      arrow.classList.add('open');
-    }
-  });
+    const subtree = element.parentElement.querySelector('.subtree');
+    const arrow = element;
+    
+    subtree.classList.toggle('show');
+    arrow.classList.toggle('open');
 }
 
 function collapseAll() {
-  // Collapse everything except the main domains title
-  const domainsList = document.getElementById('domainsList');
-  const mainArrow = document.querySelector('.section-title .arrow');
-  domainsList.classList.remove('show');
-  mainArrow.classList.remove('open');
-  
-  // Collapse all other arrows
-  const allArrows = document.querySelectorAll('.arrow:not(.section-title .arrow)');
-  allArrows.forEach(arrow => {
-    const subtree = arrow.parentElement.querySelector('.subtree');
-    if (subtree) {
-      subtree.classList.remove('show');
-      arrow.classList.remove('open');
-    }
-  });
+    const domainsList = document.getElementById('domainsList');
+    const mainArrow = document.querySelector('.section-title .arrow');
+    
+    // Collapse domains
+    domainsList.classList.remove('show');
+    mainArrow.classList.remove('open');
+    
+    // Collapse all other arrows
+    const allArrows = document.querySelectorAll('.arrow:not(.section-title .arrow)');
+    allArrows.forEach(arrow => {
+        const subtree = arrow.parentElement.querySelector('.subtree');
+        if (subtree) {
+            subtree.classList.remove('show');
+            arrow.classList.remove('open');
+        }
+    });
 }
 
-// Add keyboard shortcuts
+// Keyboard shortcuts
 document.addEventListener('keydown', function(e) {
-  switch (e.key) {
-    case '+':
-    case '=':
-      if (e.ctrlKey || e.metaKey) {
-        e.preventDefault();
-        zoomIn();
-      }
-      break;
-    case '-':
-      if (e.ctrlKey || e.metaKey) {
-        e.preventDefault();
-        zoomOut();
-      }
-      break;
-    case '0':
-      if (e.ctrlKey || e.metaKey) {
-        e.preventDefault();
-        resetView();
-      }
-      break;
-    case 'Escape':
-      collapseAll();
-      break;
-    case ' ':
-      if (!e.target.matches('input, textarea')) {
-        e.preventDefault();
-        expandAll();
-      }
-      break;
-  }
-});
-
-// Add coordinates display
-const coordsDiv = document.createElement('div');
-coordsDiv.className = 'coordinates';
-coordsDiv.textContent = 'X: 0, Y: 0';
-document.body.appendChild(coordsDiv);
-
-// Update coordinates on move
-zoomContainer.addEventListener('mousemove', function(e) {
-  const rect = treeContainer.getBoundingClientRect();
-  const x = Math.round((e.clientX - rect.left) / scale - posX);
-  const y = Math.round((e.clientY - rect.top) / scale - posY);
-  coordsDiv.textContent = `X: ${x}, Y: ${y}`;
+    switch(e.key) {
+        case 'r':
+        case 'R':
+            resetView();
+            break;
+        case ' ':
+            e.preventDefault();
+            toggleDomains();
+            break;
+    }
 });
