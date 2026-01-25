@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taxonomy Browser</title>
+    <title>Taxonomy Tree</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -14,7 +14,7 @@
     
     <div class="infinite-space" id="infiniteSpace">
         <div class="taxonomy-container" id="taxonomyContainer">
-            <div class="header">Taxonomy Browser</div>
+            <div class="header">Taxonomy Tree</div>
 
             <div class="section">
                 <div class="section-title">
@@ -22,32 +22,257 @@
                     <span class="domain-text" onclick="toggleDomains()">Domains</span>
                 </div>
                 <ul id="domainsList" class="domains-list">
+                    
+                    <!-- Eukarya - Complete Hierarchy -->
                     <li class="domain-item">
                         <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Eukarya
                         <ul class="subtree">
-                            <li>Kingdom 1</li>
+                            <!-- Kingdom 1 -->
                             <li>
-                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Kingdom 2
+                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Animalia
                                 <ul class="subtree">
-                                    <li>Phylum 1</li>
-                                    <li>Phylum 2</li>
-                                    <li>Phylum 3</li>
+                                    <li>
+                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Chordata
+                                        <ul class="subtree">
+                                            <li>
+                                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Mammalia
+                                                <ul class="subtree">
+                                                    <li>
+                                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Carnivora
+                                                        <ul class="subtree">
+                                                            <li>
+                                                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Felidae
+                                                                <ul class="subtree">
+                                                                    <li>
+                                                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Panthera
+                                                                        <ul class="subtree">
+                                                                            <li>Panthera leo (Lion)</li>
+                                                                            <li>Panthera tigris (Tiger)</li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li>
+                                                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Felis
+                                                                        <ul class="subtree">
+                                                                            <li>Felis catus (Domestic Cat)</li>
+                                                                            <li>Felis silvestris (Wildcat)</li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            
+                            <!-- Kingdom 2 -->
+                            <li>
+                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Plantae
+                                <ul class="subtree">
+                                    <li>
+                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Tracheophyta
+                                        <ul class="subtree">
+                                            <li>
+                                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Magnoliopsida
+                                                <ul class="subtree">
+                                                    <li>
+                                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Rosales
+                                                        <ul class="subtree">
+                                                            <li>
+                                                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Rosaceae
+                                                                <ul class="subtree">
+                                                                    <li>
+                                                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Rosa
+                                                                        <ul class="subtree">
+                                                                            <li>Rosa gallica (French Rose)</li>
+                                                                            <li>Rosa canina (Dog Rose)</li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            
+                            <!-- Kingdom 3 -->
+                            <li>
+                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Fungi
+                                <ul class="subtree">
+                                    <li>
+                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Basidiomycota
+                                        <ul class="subtree">
+                                            <li>
+                                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Agaricomycetes
+                                                <ul class="subtree">
+                                                    <li>
+                                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Agaricales
+                                                        <ul class="subtree">
+                                                            <li>
+                                                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Amanitaceae
+                                                                <ul class="subtree">
+                                                                    <li>
+                                                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Amanita
+                                                                        <ul class="subtree">
+                                                                            <li>Amanita muscaria (Fly Agaric)</li>
+                                                                            <li>Amanita phalloides (Death Cap)</li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
+                    
+                    <!-- Bacteria - Complete Hierarchy -->
                     <li class="domain-item">
                         <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Bacteria
                         <ul class="subtree">
-                            <li>Kingdom A</li>
-                            <li>Kingdom B</li>
+                            <!-- Bacterial Kingdom -->
+                            <li>
+                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Bacteria (Kingdom)
+                                <ul class="subtree">
+                                    <li>
+                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Proteobacteria
+                                        <ul class="subtree">
+                                            <li>
+                                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Gammaproteobacteria
+                                                <ul class="subtree">
+                                                    <li>
+                                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Enterobacterales
+                                                        <ul class="subtree">
+                                                            <li>
+                                                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Enterobacteriaceae
+                                                                <ul class="subtree">
+                                                                    <li>
+                                                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Escherichia
+                                                                        <ul class="subtree">
+                                                                            <li>Escherichia coli</li>
+                                                                            <li>Escherichia fergusonii</li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li>
+                                                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Salmonella
+                                                                        <ul class="subtree">
+                                                                            <li>Salmonella enterica</li>
+                                                                            <li>Salmonella bongori</li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    
+                                    <li>
+                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Firmicutes
+                                        <ul class="subtree">
+                                            <li>
+                                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Bacilli
+                                                <ul class="subtree">
+                                                    <li>
+                                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Bacillales
+                                                        <ul class="subtree">
+                                                            <li>
+                                                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Bacillaceae
+                                                                <ul class="subtree">
+                                                                    <li>
+                                                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Bacillus
+                                                                        <ul class="subtree">
+                                                                            <li>Bacillus subtilis</li>
+                                                                            <li>Bacillus anthracis</li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
+                    
+                    <!-- Archaea - Complete Hierarchy -->
                     <li class="domain-item">
                         <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Archaea
                         <ul class="subtree">
-                            <li>Kingdom X</li>
-                            <li>Kingdom Y</li>
+                            <!-- Archaeal Kingdom -->
+                            <li>
+                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Crenarchaeota
+                                <ul class="subtree">
+                                    <li>
+                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Thermoprotei
+                                        <ul class="subtree">
+                                            <li>
+                                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Thermoproteales
+                                                <ul class="subtree">
+                                                    <li>
+                                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Thermoproteaceae
+                                                        <ul class="subtree">
+                                                            <li>
+                                                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Thermoproteus
+                                                                <ul class="subtree">
+                                                                    <li>Thermoproteus tenax</li>
+                                                                    <li>Thermoproteus neutrophilus</li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            
+                            <li>
+                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Euryarchaeota
+                                <ul class="subtree">
+                                    <li>
+                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Methanobacteria
+                                        <ul class="subtree">
+                                            <li>
+                                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Methanobacteriales
+                                                <ul class="subtree">
+                                                    <li>
+                                                        <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Methanobacteriaceae
+                                                        <ul class="subtree">
+                                                            <li>
+                                                                <span class="arrow" onclick="toggleArrow(this)">&#9654;</span> Methanobacterium
+                                                                <ul class="subtree">
+                                                                    <li>Methanobacterium formicicum</li>
+                                                                    <li>Methanobacterium bryantii</li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                 </ul>
